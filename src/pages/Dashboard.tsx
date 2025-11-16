@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Document } from '../types/document';
+import {
+  Box,
+  Heading,
+  Button,
+  Text,
+} from '@chakra-ui/react';
+
+interface Document {
+  id: string;
+  title: string;
+  summary: string;
+  created_at: string;
+}
 
 const Dashboard: React.FC = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -8,8 +20,6 @@ const Dashboard: React.FC = () => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
 
   useEffect(() => {
-    // TODO: Fetch documents from API
-    // Mock data for now
     setDocuments([
       {
         id: '1',
@@ -27,36 +37,27 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const handleAddNote = () => {
-    // TODO: Send to API
     console.log('Adding note:', newNote);
     setShowAddNote(false);
     setNewNote({ title: '', content: '' });
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Document Assistant</h1>
+    <Box p={8} maxW="800px" mx="auto">
+      <Heading mb={8}>Document Assistant</Heading>
 
-      <div style={{ marginBottom: '30px' }}>
-        <button
-          onClick={() => setShowAddNote(true)}
-          style={{ marginRight: '10px', padding: '10px 20px' }}
-        >
+      <Box mb={8}>
+        <Button colorScheme="blue" mr={4} onClick={() => setShowAddNote(true)}>
           + Add Note
-        </button>
-        <button style={{ padding: '10px 20px' }}>📁 Upload Document</button>
-      </div>
+        </Button>
+        <Button variant="outline">📁 Upload Document</Button>
+      </Box>
 
       {showAddNote && (
-        <div
-          style={{
-            border: '1px solid #ccc',
-            padding: '20px',
-            marginBottom: '20px',
-            borderRadius: '5px',
-          }}
-        >
-          <h3>Add New Note</h3>
+        <Box border="1px" borderColor="gray.200" p={6} borderRadius="md" mb={8}>
+          <Heading size="md" mb={4}>
+            Add New Note
+          </Heading>
           <input
             type="text"
             placeholder="Note title"
@@ -67,47 +68,46 @@ const Dashboard: React.FC = () => {
           <textarea
             placeholder="Note content"
             value={newNote.content}
-            onChange={(e) =>
-              setNewNote({ ...newNote, content: e.target.value })
-            }
-            style={{
-              width: '100%',
-              height: '150px',
-              padding: '10px',
-              marginBottom: '10px',
-            }}
+            onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
+            style={{ width: '100%', height: '150px', padding: '10px', marginBottom: '10px' }}
           />
-          <button onClick={handleAddNote} style={{ marginRight: '10px' }}>
+          <Button colorScheme="blue" mr={4} onClick={handleAddNote}>
             Save
-          </button>
-          <button onClick={() => setShowAddNote(false)}>Cancel</button>
-        </div>
+          </Button>
+          <Button variant="ghost" onClick={() => setShowAddNote(false)}>
+            Cancel
+          </Button>
+        </Box>
       )}
 
-      <h2>Your Documents</h2>
-      <div style={{ display: 'grid', gap: '15px' }}>
+      <Box>
+        <Heading size="lg" mb={4}>
+          Your Documents
+        </Heading>
         {documents.map((doc) => (
-          <Link
-            key={doc.id}
-            to={`/document/${doc.id}`}
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            <div
-              style={{
-                border: '1px solid #ddd',
-                padding: '15px',
-                borderRadius: '5px',
-                cursor: 'pointer',
-              }}
+          <Link key={doc.id} to={`/document/${doc.id}`} style={{ textDecoration: 'none' }}>
+            <Box
+              border="1px"
+              borderColor="gray.200"
+              p={4}
+              borderRadius="md"
+              mb={4}
+              _hover={{ bg: 'gray.50' }}
             >
-              <h3 style={{ margin: '0 0 10px 0' }}>{doc.title}</h3>
-              <p style={{ margin: '0', color: '#666' }}>{doc.summary}</p>
-              <small style={{ color: '#999' }}>{doc.created_at}</small>
-            </div>
+              <Heading size="md" mb={2}>
+                {doc.title}
+              </Heading>
+              <Text color="gray.600" mb={2}>
+                {doc.summary}
+              </Text>
+              <Text fontSize="sm" color="gray.400">
+                {doc.created_at}
+              </Text>
+            </Box>
           </Link>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

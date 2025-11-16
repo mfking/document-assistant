@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import Dashboard from './pages/Dashboard';
 import DocumentView from './pages/DocumentView';
-import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
+    <ChakraProvider value={defaultSystem}>
+      <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/document/:id" element={<DocumentView />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </ChakraProvider>
   );
 }
 

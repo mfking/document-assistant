@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
-interface ChatMessage {
-  id: string;
-  type: 'user' | 'ai';
-  content: string;
-  timestamp: string;
-}
+import { ChatMessage } from '../types/chat';
+import { Note } from '../types/note';
 
 const DocumentView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [document, setDocument] = useState<any>(null);
+  const [document, setDocument] = useState<Note>();
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
+    if (id == null) {
+      // todo show an error
+      return;
+    }
     // TODO: Fetch document by ID from API
     // Mock data for now
     setDocument({
       id: id,
+      summary: '',
+      created_at: '',
       title: 'Meeting Notes - Jan 15',
       content: `# Meeting Notes - January 15, 2024
 
