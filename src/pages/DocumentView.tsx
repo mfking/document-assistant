@@ -19,7 +19,7 @@ const DocumentView: React.FC = () => {
     setDocument({
       id: id,
       summary: '',
-      created_at: '',
+      createdAt: '',
       title: 'Meeting Notes - Jan 15',
       content: `# Meeting Notes - January 15, 2024
 

@@ -2,7 +2,7 @@ export interface NoteMetadata {
   id: string;
   title: string;
   summary: string;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface Note extends NoteMetadata {
