@@ -1,4 +1,5 @@
 import { Button, Heading, HStack } from '@chakra-ui/react';
+import { DocumentUpload } from './DocumentUpload';
 
 export type ViewMode = 'subjects' | 'notes';
 
@@ -31,7 +32,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         </HStack>
         <HStack>
           <Button colorScheme="blue">+ Add Note</Button>
-          <Button variant="outline">📁 Upload Note</Button>
+          <DocumentUpload />
         </HStack>
       </HStack>
     </>

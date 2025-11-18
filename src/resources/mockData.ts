@@ -107,3 +107,45 @@ Recent advances in artificial intelligence (AI) have led to the widespread adopt
     updatedAt: new Date('2024-01-15'),
   },
 };
+
+// Function to get all documents including uploaded ones
+export const getAllDocuments = (): { [id: string]: Note } => {
+  const uploadedDocs = JSON.parse(
+    localStorage.getItem('uploadedDocuments') || '{}'
+  );
+
+  // Convert uploaded docs to Note format
+  const convertedUploadedDocs: { [id: string]: Note } = {};
+  Object.entries(uploadedDocs).forEach(([id, doc]: [string, any]) => {
+    convertedUploadedDocs[id] = {
+      ...doc,
+      content: '', // Will be loaded separately
+      summary: doc.summary || 'Uploaded document - summary will be generated',
+      keyPoints: doc.keyPoints || [],
+      subjectId: '2', // Default to Computer Science
+      tagIds: [],
+      type: 'text' as const,
+      createdAt: new Date(doc.uploadedAt || Date.now()),
+      updatedAt: new Date(doc.uploadedAt || Date.now()),
+    };
+  });
+
+  return { ...mockDocuments, ...convertedUploadedDocs };
+};
+
+// Function to get document content from backend
+export const getDocumentContent = async (filename: string): Promise<string> => {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/api/document/${filename}`
+    );
+    if (!response.ok) {
+      throw new Error('Failed to fetch document content');
+    }
+    const data = await response.json();
+    return data.content;
+  } catch (error) {
+    console.error('Error fetching document content:', error);
+    return 'Error loading document content';
+  }
+};

@@ -4,7 +4,7 @@ import { Box, Text, Grid } from '@chakra-ui/react';
 import { DocumentViewHeader } from '../components/DocumentViewHeader';
 import { NotePreview } from '../components/NotePreview';
 import { ChatPanel } from '../components/chat/ChatPanel';
-import { mockDocuments } from '../resources/mockData';
+import { getAllDocuments } from '../resources/mockData';
 import { Note } from '../types/document';
 
 const DocumentView: React.FC = () => {
@@ -16,10 +16,34 @@ const DocumentView: React.FC = () => {
       return;
     }
 
-    // Get document from mock data
-    const doc = mockDocuments[id];
+    // Get document from all documents (including uploaded ones)
+    const allDocs = getAllDocuments();
+    const doc = allDocs[id];
     if (doc) {
       setDocument(doc);
+
+      // If it's an uploaded document, fetch content from backend
+      const uploadedDocs = JSON.parse(
+        localStorage.getItem('uploadedDocuments') || '{}'
+      );
+      if (uploadedDocs[id]) {
+        const fetchContent = async () => {
+          try {
+            const response = await fetch(
+              `http://localhost:3001/api/document/${uploadedDocs[id].filename}`
+            );
+            if (response.ok) {
+              const data = await response.json();
+              setDocument((prev) =>
+                prev ? { ...prev, content: data.content } : undefined
+              );
+            }
+          } catch (error) {
+            console.error('Error loading document content:', error);
+          }
+        };
+        fetchContent();
+      }
     }
   }, [id]);
 
@@ -36,9 +60,9 @@ const DocumentView: React.FC = () => {
         <Box overflow="auto" p={6} borderRight="1px" borderColor="gray.200">
           <NotePreview
             title={document.title}
-            summary={document.summary}
-            keyPoints={document.keyPoints}
-            content={document.content}
+            summary={document.summary || 'No summary available'}
+            keyPoints={document.keyPoints || []}
+            content={document.content || 'Loading content...'}
           />
         </Box>
 

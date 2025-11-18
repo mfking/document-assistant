@@ -2,6 +2,9 @@
 .env
 server/.env
 
+# uploaded documents
+/src/resources/notes/
+
 # dependencies
 node_modules/
 server/node_modules/
