@@ -3,6 +3,7 @@ export interface Note {
   title: string;
   content: string;
   summary?: string;
+  keyPoints?: string[];
   subjectId: string;
   tagIds: string[];
   filePath?: string;

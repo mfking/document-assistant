@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <Box p={8} maxW={"90%"} mx="auto">
+    <Box p={8} maxW={'90%'} mx="auto">
       <DashboardHeader viewMode={viewMode} setViewMode={setViewMode} />
 
       <VStack align="start">

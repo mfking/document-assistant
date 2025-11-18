@@ -14,7 +14,7 @@ export const SubjectGrid: React.FC<SubjectGridProps> = ({
   return (
     <>
       <Heading size="lg">Subjects</Heading>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} w="full" spaceX={"3"}>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} w="full" spaceX={'3'}>
         {Object.values(subjects).map((subject) => (
           <SubjectCard
             key={subject.id}

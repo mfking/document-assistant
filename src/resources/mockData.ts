@@ -71,3 +71,39 @@ export const mockNotes: Note[] = [
     updatedAt: new Date('2024-02-02'),
   },
 ];
+
+export const mockDocuments: { [id: string]: Note } = {
+  '1': {
+    id: '1',
+    title:
+      'Aligning Machiavellian Agents: Behavior Steering via Test-Time Policy Shaping',
+    summary:
+      'The document discusses the challenge of aligning decision-making AI agents with human values in complex environments, particularly focusing on pre-trained agents that may exhibit harmful, Machiavellian behaviors when trained solely to maximize rewards. It presents a novel approach called test-time policy shaping that utilizes model-guided policy modification to better align agent behaviors with ethical norms without the need for extensive retraining.',
+    keyPoints: [
+      'AI agents trained solely for reward maximization can exhibit harmful Machiavellian behaviors',
+      'Retraining pre-trained agents for alignment is costly and time-consuming',
+      'Test-time policy shaping offers a novel approach to align agents without retraining',
+      'The method uses model-guided policy modification to maintain ethical norms',
+      'Evaluation conducted on MACHIAVELLI benchmark with diverse agent scenarios',
+    ],
+    content: `# Aligning Machiavellian Agents: Behavior Steering via Test-Time Policy Shaping
+
+## Authors
+Dena Mujtaba, Brian Hu, Anthony Hoogs, Arslan Basharat
+
+## Abstract
+The deployment of decision-making AI agents presents a critical challenge in maintaining alignment with human values or guidelines while operating in complex, dynamic environments. Agents trained solely to achieve their objectives may exhibit harmful, Machiavellian behaviors when trained solely to maximize the reward function and maintaining the alignment. For the pre-trained agents, ensuring alignment is particularly challenging, as retraining can be a costly and slow process.
+
+## Introduction
+Recent advances in artificial intelligence (AI) have led to the widespread adoption of large language models (LLMs) in high-stakes settings such as clinical diagnostic support and financial risk assessment. This accelerated deployment of AI agents concerns about the potential risks and ethical implications of using such models, which are often trained to optimize a specific reward or objective function.
+
+## Key Contributions
+- A novel test-time, model-guided policy shaping approach for aligning text-based agents trained to maximize reward
+- A thorough evaluation on the MACHIAVELLI benchmark, covering a diverse set of agents`,
+    subjectId: '2',
+    tagIds: ['3'],
+    type: 'text',
+    createdAt: new Date('2024-01-15'),
+    updatedAt: new Date('2024-01-15'),
+  },
+};
